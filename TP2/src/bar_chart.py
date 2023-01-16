@@ -26,7 +26,8 @@ def init_figure():
     fig.update_layout(
         template=pio.templates['simple_white'],
         dragmode=False,
-        barmode='relative'
+        barmode='relative',
+        title='Lines per act',
     )
 
     return fig
@@ -45,7 +46,17 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
-    return fig
+    
+    if mode == 'Count':
+        y_data = data['LineCount']
+    elif mode == 'Percent':
+        y_data = data['LinePercent']
+    else:
+        raise ValueError("Invalid mode, please choose 'count' or 'percent'")
+    fig.add_trace(go.Bar(x=data['Act'], y=y_data,
+                    name='Act'))
+    fig.update_layout(xaxis_title='Player')
+    return update_y_axis(fig, mode)
 
 
 def update_y_axis(fig, mode):
@@ -59,3 +70,12 @@ def update_y_axis(fig, mode):
             The updated figure
     '''
     # TODO : Update the y axis title according to the current mode
+    fig = go.Figure(fig)
+    if mode == 'Count':
+        y_axis_title = 'Lines (Count)'
+    elif mode == 'Percent':
+        y_axis_title = 'Lines (%)'
+    print(mode)
+    
+    fig.update_layout(yaxis_title=y_axis_title)
+    return fig
