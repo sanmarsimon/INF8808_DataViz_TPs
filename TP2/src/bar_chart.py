@@ -24,11 +24,15 @@ def init_figure():
     # TODO : Update the template to include our new theme and set the title
 
     fig.update_layout(
-        template=pio.templates['simple_white'],
+        template=pio.templates['simple_white+my_theme'],
         dragmode=False,
         barmode='relative',
         title='Lines per act',
     )
+
+    # fig.update_traces(
+    #     hovertemplate=get_hover_template('Player', MODES['count']),
+    # )
 
     return fig
 
@@ -47,13 +51,12 @@ def draw(fig, data, mode):
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
     
-    if mode == 'Count':
-        y_data = 'LineCount'
-    elif mode == 'Percent':
-        y_data = 'LinePercent'
+    if mode == 'Count' or mode == 'Percent':
+        y_data = MODE_TO_COLUMN[mode]
     else:
         raise ValueError("Invalid mode, please choose 'count' or 'percent'")
     print(data)
+    fig.data = []
     Benvolio = data[data["Player"] == "Benvolio"]
     Juliet = data[data["Player"] == "Juliet"]
     Mercutio = data[data["Player"] == "Mercutio"]
