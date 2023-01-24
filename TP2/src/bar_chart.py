@@ -48,14 +48,25 @@ def draw(fig, data, mode):
     # TODO : Update the figure's data according to the selected mode
     
     if mode == 'Count':
-        y_data = data['LineCount']
+        y_data = 'LineCount'
     elif mode == 'Percent':
-        y_data = data['LinePercent']
+        y_data = 'LinePercent'
     else:
         raise ValueError("Invalid mode, please choose 'count' or 'percent'")
-    fig.add_trace(go.Bar(x=data['Act'], y=y_data,
-                    name='Act'))
-    fig.update_layout(xaxis_title='Player')
+    print(data)
+    Benvolio = data[data["Player"] == "Benvolio"]
+    Juliet = data[data["Player"] == "Juliet"]
+    Mercutio = data[data["Player"] == "Mercutio"]
+    Nurse = data[data["Player"] == "Nurse"]
+    Romeo = data[data["Player"] == "Romeo"]
+    Others = data[data["Player"] == "Other"]
+    fig.add_trace(go.Bar(name="Benvolio", x=Benvolio["Act"], y=Benvolio[y_data]))
+    fig.add_trace(go.Bar(name="Juliet", x=Juliet["Act"], y=Juliet[y_data]))
+    fig.add_trace(go.Bar(name="Mercutio", x=Mercutio["Act"], y=Mercutio[y_data]))
+    fig.add_trace(go.Bar(name="Nurse", x=Nurse["Act"], y=Nurse[y_data]))
+    fig.add_trace(go.Bar(name="Romeo", x=Romeo["Act"], y=Romeo[y_data]))
+    fig.add_trace(go.Bar(name="Others", x=Others["Act"], y=Others[y_data]))
+    fig.update_layout(barmode="stack")
     return update_y_axis(fig, mode)
 
 

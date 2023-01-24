@@ -129,7 +129,6 @@ def radio_updated(mode, figure):
 
 
 data = prep_data()
-print(data)
 
 create_template()
 
