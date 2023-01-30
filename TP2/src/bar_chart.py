@@ -30,10 +30,6 @@ def init_figure():
         title='Lines per act',
     )
 
-    # fig.update_traces(
-    #     hovertemplate=get_hover_template('Player', MODES['count']),
-    # )
-
     return fig
 
 
@@ -50,6 +46,8 @@ def draw(fig, data, mode):
     '''
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
+
+    data.sort_values(by=['Act', 'Player'], inplace=True)
     
     acts = []
     players = {}
