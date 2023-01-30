@@ -51,30 +51,26 @@ def draw(fig, data, mode):
     fig = go.Figure(fig)  # conversion back to Graph Object
     # TODO : Update the figure's data according to the selected mode
     
-    if mode == 'Count' or mode == 'Percent':
-        y_data = MODE_TO_COLUMN[mode]
-    else:
-        raise ValueError("Invalid mode, please choose 'count' or 'percent'")
-    print(data)
+    acts = []
+    players = {}
     fig.data = []
-    names = ['Benvolio', 'Juliet', 'Mercutio', 'Nurse', 'Romeo', 'Others']
-    Benvolio = data[data["Player"] == "Benvolio"]
-    Juliet = data[data["Player"] == "Juliet"]
-    Mercutio = data[data["Player"] == "Mercutio"]
-    Nurse = data[data["Player"] == "Nurse"]
-    Romeo = data[data["Player"] == "Romeo"]
-    Others = data[data["Player"] == "Other"]
-    fig.add_trace(go.Bar(name="Benvolio", x=Benvolio["Act"], y=Benvolio[y_data]))
-    fig.add_trace(go.Bar(name="Juliet", x=Juliet["Act"], y=Juliet[y_data]))
-    fig.add_trace(go.Bar(name="Mercutio", x=Mercutio["Act"], y=Mercutio[y_data]))
-    fig.add_trace(go.Bar(name="Nurse", x=Nurse["Act"], y=Nurse[y_data]))
-    fig.add_trace(go.Bar(name="Romeo", x=Romeo["Act"], y=Romeo[y_data]))
-    fig.add_trace(go.Bar(name="Others", x=Others["Act"], y=Others[y_data]))
+    for act in data["Act"].unique():
+        acts.append('Act ' + str(act))
+
+    for i, player in enumerate(list(data["Player"])):
+        if player not in players:
+            players[player] = [0]*5
+        if (mode == MODES["count"]):
+            players[player][list(data["Act"])[i] - 1] = list(data["LineCount"])[i]
+        else:
+            players[player][list(data["Act"])[i] - 1] = list(data["LinePercent"])[i]
+
+    for player in data["Player"].unique():
+        fig.add_trace(
+            go.Bar(name=player, x=acts, y = players[player], hovertemplate = get_hover_template(player, mode))
+        )
     fig.update_layout(barmode="stack",
                     hovermode="closest",
-    )
-    fig.update_traces(
-        hovertemplate=get_hover_template('Player', mode),
     )
     return update_y_axis(fig, mode)
 
@@ -95,7 +91,6 @@ def update_y_axis(fig, mode):
         y_axis_title = 'Lines (Count)'
     elif mode == 'Percent':
         y_axis_title = 'Lines (%)'
-    print(mode)
     
     fig.update_layout(yaxis_title=y_axis_title)
     return fig
