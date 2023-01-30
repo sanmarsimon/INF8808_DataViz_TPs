@@ -25,9 +25,10 @@ def get_hover_template(name, mode):
         Returns:
             The hover template with the elements descibed above
     '''
-    if mode == 'Count':
-        return f'<b>{name}</b><br>{{y}} lines'
-    elif mode == 'Percent':
-        return f'<b>{name}</b><br>{{y:.2f}}% of lines'
-
-    return ''
+    return "<br>".join(
+        [
+            f"<span style='font-size:24px; font-color:black; font-family:Grenze Gotisch'>{name}</span> <br>",
+            f"" + ("%{y}" + " lines" if mode == MODES["count"] else "%{y:.2f}%" + " of lines"),
+            "<extra></extra>",
+        ]
+    )

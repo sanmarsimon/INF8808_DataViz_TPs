@@ -57,6 +57,7 @@ def draw(fig, data, mode):
         raise ValueError("Invalid mode, please choose 'count' or 'percent'")
     print(data)
     fig.data = []
+    names = ['Benvolio', 'Juliet', 'Mercutio', 'Nurse', 'Romeo', 'Others']
     Benvolio = data[data["Player"] == "Benvolio"]
     Juliet = data[data["Player"] == "Juliet"]
     Mercutio = data[data["Player"] == "Mercutio"]
@@ -69,7 +70,12 @@ def draw(fig, data, mode):
     fig.add_trace(go.Bar(name="Nurse", x=Nurse["Act"], y=Nurse[y_data]))
     fig.add_trace(go.Bar(name="Romeo", x=Romeo["Act"], y=Romeo[y_data]))
     fig.add_trace(go.Bar(name="Others", x=Others["Act"], y=Others[y_data]))
-    fig.update_layout(barmode="stack")
+    fig.update_layout(barmode="stack",
+                    hovermode="closest",
+    )
+    fig.update_traces(
+        hovertemplate=get_hover_template('Player', mode),
+    )
     return update_y_axis(fig, mode)
 
 
