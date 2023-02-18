@@ -27,8 +27,10 @@ def get_figure(data):
         xaxis_title='Year',
         yaxis_title='Neighborhood',
         dragmode = False,
-        template = pio.templates['simple_white']
+        coloraxis_colorbar_title_text = 'Trees',
+        xaxis_tickmode = 'linear'
     )
     
+    fig.update_traces(hovertemplate = hover_template.get_heatmap_hover_template())
     fig.show()
     return fig
