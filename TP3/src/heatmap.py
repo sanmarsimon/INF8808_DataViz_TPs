@@ -28,9 +28,15 @@ def get_figure(data):
         yaxis_title='Neighborhood',
         dragmode = False,
         coloraxis_colorbar_title_text = 'Trees',
-        # xaxis_tickmode = 'linear'
+
+        # Set the x-axis ticks to be the years in the dataset and display the year only
+        xaxis = dict(
+            tickmode = 'array',
+            tickvals = data.columns,
+            ticktext = data.columns.str.slice(0, 4)
+        )
     )
     
     fig.update_traces(hovertemplate = hover_template.get_heatmap_hover_template())
-    #fig.show()
+    fig.show()
     return fig

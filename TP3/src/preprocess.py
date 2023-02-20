@@ -14,7 +14,7 @@ def convert_dates(dataframe):
             The processed dataframe with datetime-formatted dates.
     '''
     # TODO : Convert dates
-    dataframe['Date_Plantation'] = pd.to_datetime(dataframe['Date_Plantation'], format='%Y-%m-%d')
+    dataframe['Date_Plantation'] = pd.to_datetime(dataframe['Date_Plantation'], format="%Y/%m/%d")
 
     return dataframe
 
@@ -32,7 +32,7 @@ def filter_years(dataframe, start, end):
             The dataframe filtered by date.
     '''
     # TODO : Filter by dates
-    dataframe = dataframe[(dataframe['Date_Plantation'] >= pd.to_datetime(str(start), format='%Y')) & (dataframe['Date_Plantation'] <= pd.to_datetime(str(end), format='%Y'))]
+    dataframe = dataframe[(dataframe['Date_Plantation'].dt.year >= start) & (dataframe['Date_Plantation'].dt.year <= end)]
 
     return dataframe
 
@@ -80,6 +80,9 @@ def restructure_df(yearly_df):
 
     # Renmae columns by giving the year and December 31st
     data.columns = [str(col) + '-12-31' for col in data.columns]
+
+    # Change column type to string
+    data.columns = data.columns.astype(str)
 
     return data
 
