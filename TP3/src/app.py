@@ -32,8 +32,6 @@ dataframe = preprocess.convert_dates(dataframe)
 dataframe = preprocess.filter_years(dataframe, 2010, 2020)
 yearly_df = preprocess.summarize_yearly_counts(dataframe)
 data = preprocess.restructure_df(yearly_df)
-print(data)
-#print(preprocess.get_daily_info(dataframe, 'Le Sud-Ouest', '2017'))
 
 template.create_custom_theme()
 template.set_default_theme()

@@ -47,7 +47,6 @@ def create_custom_theme():
         Specifies the x-axis ticks are tilted 45
         degrees to the right.
     '''
-    # TODO : Generate template described above
 
     pio.templates["custom_theme"] = go.layout.Template(
         layout = go.Layout(
@@ -80,6 +79,5 @@ def set_default_theme():
         Sets the default theme to be a combination of the
         'plotly_white' theme and our custom theme.
     '''
-    # TODO : Set default theme
 
     pio.templates.default = 'plotly_white+custom_theme'

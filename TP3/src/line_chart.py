@@ -16,8 +16,7 @@ def get_empty_figure():
 
     '''
 
-    # TODO : Construct the empty figure to display. Make sure to 
-    # set dragmode=False in the layout.
+
     
     fig = px.line()
     fig.update_layout(
@@ -37,7 +36,6 @@ def add_rectangle_shape(fig):
         paper of the figure. The height goes from
         0.25% to 0.75% the height of the figure.
     '''
-    # TODO : Draw the rectangle
     fig.update_layout(
         shapes=[dict(
             type="rect",
@@ -74,17 +72,16 @@ def get_figure(line_data, arrond, year):
         Returns:
             The figure to be displayed
     '''
-    # TODO : Construct the required figure. Don't forget to include the hover template
     fig = px.line(line_data, x=line_data.columns[0], y=line_data.columns[1])
     fig.update_layout(
-        #xaxis_title='Date',
+        xaxis_title='',
         yaxis_title='Trees',
         title = f'Trees planted in {arrond} in {year[0:4]}',    # Display the year only
-        #template=pio.templates['simple_white+custom_theme']
     )
 
     fig.update_traces(hovertemplate = hover_template.get_linechart_hover_template())
     fig.update_xaxes(tickformat='%d %b')
+
     if len(line_data) == 1:
         fig.update_traces(mode='markers')
 
