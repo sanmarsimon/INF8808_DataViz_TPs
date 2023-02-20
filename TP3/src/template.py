@@ -69,7 +69,8 @@ def create_custom_theme():
                     color = THEME['dark_color']
                 ), 
                 bgcolor = THEME['label_background_color']
-            )
+            ),
+            colorway = [THEME['line_chart_color']]
         )
     )
 
