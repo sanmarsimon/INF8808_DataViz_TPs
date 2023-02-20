@@ -75,4 +75,17 @@ def get_figure(line_data, arrond, year):
             The figure to be displayed
     '''
     # TODO : Construct the required figure. Don't forget to include the hover template
-    return None
+    fig = px.line(line_data, x=line_data.columns[0], y=line_data.columns[1])
+    fig.update_layout(
+        #xaxis_title='Date',
+        yaxis_title='Trees',
+        title = f'Trees planted in {arrond} in {year[0:4]}',    # Display the year only
+        #template=pio.templates['simple_white+custom_theme']
+    )
+
+    fig.update_traces(hovertemplate = hover_template.get_linechart_hover_template())
+    fig.update_xaxes(tickformat='%d %b')
+    if len(line_data) == 1:
+        fig.update_traces(mode='markers')
+
+    return fig

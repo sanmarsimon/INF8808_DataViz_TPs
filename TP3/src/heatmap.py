@@ -33,10 +33,10 @@ def get_figure(data):
         xaxis = dict(
             tickmode = 'array',
             tickvals = data.columns,
-            ticktext = data.columns.str.slice(0, 4)
+            ticktext = data.columns.str.slice(0, 4) # Display only the year
         )
     )
     
     fig.update_traces(hovertemplate = hover_template.get_heatmap_hover_template())
-    fig.show()
+    #fig.show()
     return fig
