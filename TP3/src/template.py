@@ -50,19 +50,29 @@ def create_custom_theme():
     # TODO : Generate template described above
 
     pio.templates["custom_theme"] = go.layout.Template(
-    layout = go.Layout(
-        font = dict(family = THEME['font_family'], color = THEME['dark_color']),            
-        hovermode = 'closest',
-        
-        colorscale_sequential = THEME['colorscale'],
-        plot_bgcolor = THEME['background_color'],
-        paper_bgcolor = THEME['background_color'],
-        
-        xaxis = go.layout.XAxis(tickangle = -45),
-        hoverlabel = dict(
+        layout = go.Layout(
             font = dict(
-                family = THEME['font_family'], size = THEME['label_font_size'],
-                color = THEME['dark_color']), bgcolor = THEME['label_background_color'])))
+                family = THEME['font_family'],
+                color = THEME['dark_color']
+            ),            
+            hovermode = 'closest',
+            
+            colorscale_sequential = THEME['colorscale'],
+            plot_bgcolor = THEME['background_color'],
+            paper_bgcolor = THEME['background_color'],
+            
+            xaxis = go.layout.XAxis(tickangle = -45),
+            hoverlabel = dict(
+                font = dict(
+                    family = THEME['font_family'], 
+                    size = THEME['label_font_size'],
+                    color = THEME['dark_color']
+                ), 
+                bgcolor = THEME['label_background_color']
+            )
+        )
+    )
+
 
 def set_default_theme():
     '''

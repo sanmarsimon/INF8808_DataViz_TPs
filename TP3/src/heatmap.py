@@ -28,9 +28,9 @@ def get_figure(data):
         yaxis_title='Neighborhood',
         dragmode = False,
         coloraxis_colorbar_title_text = 'Trees',
-        xaxis_tickmode = 'linear'
+        # xaxis_tickmode = 'linear'
     )
     
     fig.update_traces(hovertemplate = hover_template.get_heatmap_hover_template())
-    fig.show()
+    #fig.show()
     return fig
