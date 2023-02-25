@@ -18,7 +18,8 @@ def get_heatmap_hover_template():
     return "<br>".join([
         "<span style='font-family: Roboto Slab; font-weight: bold'>Neighborhood</span> : %{y}",
         "<span style='font-family: Roboto Slab; font-weight: bold'>Year</span> : %{x}",
-        "<span style='font-family: Roboto; font-weight: bold'>Trees</span> : %{z}"
+        "<span style='font-family: Roboto; font-weight: bold'>Trees</span> : %{z}",
+        "<extra></extra>"
     ])
 
 
