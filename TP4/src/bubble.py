@@ -45,6 +45,8 @@ def get_plot(my_df, gdp_range, co2_range):
         hover_data=['Country Name', 'Population']
     )
 
+    fig.update_traces(marker_sizemin=6)
+
     return fig
 
 
@@ -81,7 +83,6 @@ def update_animation_menu(fig):
     '''
 
     # Remove the 'Stop' button from the animation menu
-    print(fig.layout.updatemenus[0].buttons)
     fig.update_layout(
         updatemenus=[dict(
         type="buttons",

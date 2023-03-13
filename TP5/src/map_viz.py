@@ -30,8 +30,23 @@ def add_choro_trace(fig, montreal_data, locations, z_vals, colorscale):
 
     '''
     # TODO : Draw the map base
-    fig = go.Figure(go.Choroplethmapbox(geojson=montreal_data, locations=locations, z=z_vals, colorscale=colorscale, marker_opacity=0.2))
+    # fig = go.Figure(data=go.Choroplethmapbox(geojson=montreal_data, locations=locations, z=z_vals, colorscale=colorscale, marker_opacity=0.2))
+    # fig.update_layout(mapbox_style="carto-positron", mapbox_zoom=9.5, mapbox_center = {"lat": 45.50884, "lon": -73.58781})
+
+    # fig.add_trace(
+    # go.Choroplethmapbox(
+    #     locations=locations,
+    #     z=z_vals,
+    #     geojson=montreal_data,
+    #     colorscale=colorscale,
+    #     marker_opacity=0.2,
+    #     #hovertemplate=hover.get_hover_template()
+    # )
+    # )
+
+    fig = px.choropleth_mapbox(geojson=montreal_data, locations=locations, color=z_vals, opacity=0.2)
     fig.update_layout(mapbox_style="carto-positron", mapbox_zoom=9.5, mapbox_center = {"lat": 45.50884, "lon": -73.58781})
+
     
     return fig
 
@@ -51,6 +66,6 @@ def add_scatter_traces(fig, street_df):
 
     '''
     # TODO : Add the scatter markers to the map base
-    # fig.add_trace(go.Scattermapbox(lat=street_df['lat'], lon=street_df['lon'], mode='markers', marker=go.scattermapbox.Marker(size=20)))
+    # fig.add_trace(go.Scattermapbox(lat=street_df['properties.LATITUDE'], lon=street_df['properties.LONGITUDE'], mode='markers', marker=go.scattermapbox.Marker(size=20)))
     
     return fig
