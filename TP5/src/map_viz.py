@@ -30,24 +30,55 @@ def add_choro_trace(fig, montreal_data, locations, z_vals, colorscale):
 
     '''
     # TODO : Draw the map base
-    # fig = go.Figure(data=go.Choroplethmapbox(geojson=montreal_data, locations=locations, z=z_vals, colorscale=colorscale, marker_opacity=0.2))
+    # fig = go.Figure(go.Choroplethmapbox(geojson=montreal_data, locations=locations, z=z_vals, colorscale=colorscale, marker_opacity=0.2))
     # fig.update_layout(mapbox_style="carto-positron", mapbox_zoom=9.5, mapbox_center = {"lat": 45.50884, "lon": -73.58781})
 
     # fig.add_trace(
-    # go.Choroplethmapbox(
-    #     locations=locations,
-    #     z=z_vals,
-    #     geojson=montreal_data,
-    #     colorscale=colorscale,
-    #     marker_opacity=0.2,
-    #     #hovertemplate=hover.get_hover_template()
-    # )
+    #     go.Choroplethmapbox(
+    #         locations=locations,
+    #         z=z_vals,
+    #         geojson=montreal_data,
+    #         colorscale=colorscale,
+    #         marker_opacity=0.2,
+    #         #hovertemplate=hover.get_hover_template()
+    #     )
     # )
 
-    fig = px.choropleth_mapbox(geojson=montreal_data, locations=locations, color=z_vals, opacity=0.2)
-    fig.update_layout(mapbox_style="carto-positron", mapbox_zoom=9.5, mapbox_center = {"lat": 45.50884, "lon": -73.58781})
+        # Create the base map
+    # fig.add_trace(
+    #     go.Choroplethmapbox(
+    #         geojson=montreal_data,
+    #         locations=locations,
+    #         z=z_vals,
+    #         colorscale=colorscale,
+    #         marker_opacity=0.2,
+    #         #hovertemplate=hover.get_hover_template(),
+    #         showlegend=False,
+    #     ),
+    # )
 
-    
+    # # Set the map layout
+    # fig.update_layout(
+    #     mapbox_style="carto-positron",
+    #     mapbox_zoom=10,
+    #     mapbox_center={"lat": 45.522, "lon": -73.619},
+    # )
+
+    fig = go.Figure(
+        go.Choroplethmapbox(
+            geojson=montreal_data,
+            locations=locations,
+            featureidkey="properties.NOM",
+            z=z_vals,
+            zauto=True,
+            colorscale=colorscale,
+            showscale=False,
+            marker_line_color='grey',
+        )
+    )
+
+    fig.update_traces(hovertemplate=hover.map_base_hover_template())
+
     return fig
 
 
@@ -66,6 +97,34 @@ def add_scatter_traces(fig, street_df):
 
     '''
     # TODO : Add the scatter markers to the map base
-    # fig.add_trace(go.Scattermapbox(lat=street_df['properties.LATITUDE'], lon=street_df['properties.LONGITUDE'], mode='markers', marker=go.scattermapbox.Marker(size=20)))
-    
+    colors = {
+        "Noyau villageois": "#636EFA",
+        "Passage entre rues résidentielles": "#EF553B",
+        "Rue bordant un bâtiment public ou institutionnel": "#00CC96",
+        "Rue commerciale de quartier, d’ambiance ou de destination": "#AB63FA",
+        "Rue en bordure ou entre deux parcs ou place publique": "#FFA15A",
+        "Rue entre un parc et un bâtiment public ou institutionnel": "#19D3F3",
+        "Rue transversale à une rue commerciale": "#FF6692",
+    }
+
+    for intervention, intervention_data in street_df.groupby(
+        "properties.TYPE_SITE_INTERVENTION"
+    ):
+        fig.add_trace(
+            go.Scattermapbox(
+                lat=intervention_data["properties.LATITUDE"],
+                lon=intervention_data["properties.LONGITUDE"],
+                name=intervention,
+                hovertemplate=hover.map_marker_hover_template(intervention),
+                marker=go.scattermapbox.Marker(
+                    size=20, color=colors[intervention]
+                ),
+                customdata=[
+                    intervention_data["properties.NOM_PROJET"],
+                    intervention_data["properties.MODE_IMPLANTATION"],
+                    intervention_data["properties.OBJECTIF_THEMATIQUE"],
+                ],
+            )
+        )
+
     return fig
