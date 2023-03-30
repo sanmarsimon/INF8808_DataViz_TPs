@@ -17,6 +17,7 @@ def no_clicks(style):
         theme: The updated display theme
         style: The updated display style for the panel
     """
+
     return None, None, None, None
 
 
@@ -36,6 +37,7 @@ def map_base_clicked(title, mode, theme, style):
         theme: The updated display theme
         style: The updated display style for the panel
     """
+    
     return title, mode, theme, style
 
 

@@ -29,41 +29,6 @@ def add_choro_trace(fig, montreal_data, locations, z_vals, colorscale):
             fig: The updated figure with the choropleth trace
 
     '''
-    # TODO : Draw the map base
-    # fig = go.Figure(go.Choroplethmapbox(geojson=montreal_data, locations=locations, z=z_vals, colorscale=colorscale, marker_opacity=0.2))
-    # fig.update_layout(mapbox_style="carto-positron", mapbox_zoom=9.5, mapbox_center = {"lat": 45.50884, "lon": -73.58781})
-
-    # fig.add_trace(
-    #     go.Choroplethmapbox(
-    #         locations=locations,
-    #         z=z_vals,
-    #         geojson=montreal_data,
-    #         colorscale=colorscale,
-    #         marker_opacity=0.2,
-    #         #hovertemplate=hover.get_hover_template()
-    #     )
-    # )
-
-        # Create the base map
-    # fig.add_trace(
-    #     go.Choroplethmapbox(
-    #         geojson=montreal_data,
-    #         locations=locations,
-    #         z=z_vals,
-    #         colorscale=colorscale,
-    #         marker_opacity=0.2,
-    #         #hovertemplate=hover.get_hover_template(),
-    #         showlegend=False,
-    #     ),
-    # )
-
-    # # Set the map layout
-    # fig.update_layout(
-    #     mapbox_style="carto-positron",
-    #     mapbox_zoom=10,
-    #     mapbox_center={"lat": 45.522, "lon": -73.619},
-    # )
-
     fig = go.Figure(
         go.Choroplethmapbox(
             geojson=montreal_data,
@@ -96,7 +61,6 @@ def add_scatter_traces(fig, street_df):
             The figure now containing the scatter trace
 
     '''
-    # TODO : Add the scatter markers to the map base
     colors = {
         "Noyau villageois": "#636EFA",
         "Passage entre rues résidentielles": "#EF553B",

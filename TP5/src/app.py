@@ -34,7 +34,6 @@ with open('./assets/data/projetpietonnisation2017.geojson',
     street_data = json.load(data_file)
 
 street_df = preproc.to_df(street_data)
-print(street_df)
 street_df = preproc.update_titles(street_df)
 street_df = preproc.sort_df(street_df)
 
