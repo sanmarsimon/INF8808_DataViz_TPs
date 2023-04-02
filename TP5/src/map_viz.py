@@ -64,30 +64,26 @@ def add_scatter_traces(fig, street_df):
     colors = {
         "Noyau villageois": "#636EFA",
         "Passage entre rues résidentielles": "#EF553B",
-        "Rue bordant un bâtiment public ou institutionnel": "#00CC96",
-        "Rue commerciale de quartier, d’ambiance ou de destination": "#AB63FA",
-        "Rue en bordure ou entre deux parcs ou place publique": "#FFA15A",
         "Rue entre un parc et un bâtiment public ou institutionnel": "#19D3F3",
+        "Rue bordant un bâtiment public ou institutionnel": "#00CC96",
         "Rue transversale à une rue commerciale": "#FF6692",
+        "Rue en bordure ou entre deux parcs ou place publique": "#FFA15A",
+        "Rue commerciale de quartier, d’ambiance ou de destination": "#AB63FA",
     }
 
-    for intervention, intervention_data in street_df.groupby(
-        "properties.TYPE_SITE_INTERVENTION"
-    ):
+    for intervention, intervention_data in street_df.groupby("properties.TYPE_SITE_INTERVENTION"):
         fig.add_trace(
             go.Scattermapbox(
-                lat=intervention_data["properties.LATITUDE"],
                 lon=intervention_data["properties.LONGITUDE"],
+                lat=intervention_data["properties.LATITUDE"],
                 name=intervention,
-                hovertemplate=hover.map_marker_hover_template(intervention),
-                marker=go.scattermapbox.Marker(
-                    size=20, color=colors[intervention]
-                ),
                 customdata=[
                     intervention_data["properties.NOM_PROJET"],
                     intervention_data["properties.MODE_IMPLANTATION"],
                     intervention_data["properties.OBJECTIF_THEMATIQUE"],
                 ],
+                hovertemplate=hover.map_marker_hover_template(intervention),
+                marker=go.scattermapbox.Marker(size=20, color=colors[intervention]),
             )
         )
 
